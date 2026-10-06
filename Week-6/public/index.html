@@ -1,0 +1,92 @@
+
+<!DOCTYPE html>
+<html lang="en">
+        <head>
+                <meta charset="UTF-8">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <title> Authenticaton </title>
+                <style>
+                     .section-one {
+                     background-color: #bcd7f1;
+                     padding: 40px 20px;
+                     }
+
+                     .section-two {
+                     background-color: #ebd1d1;
+                     padding: 40px 20px;
+                     border-top: 2px solid #401111;
+                    }
+                </style>
+        </head>
+        <body>
+            <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+            <script>
+
+                async function signup(){
+                    const username = document.getElementById("user_su").value;
+                    const password = document.getElementById("pass_su").value;
+                    await axios.post("http://localhost:3002/signup", {
+                        username: username,
+                        password: password,
+                    });
+                    alert("signup successful");
+                }
+
+                async function signin(){
+                    const username = document.getElementById("user_si").value;
+                    const password = document.getElementById("pass_si").value;
+                   try {
+                        const response = await axios.post("http://localhost:3002/signin",
+                        { username: username,
+                          password: password
+                        });
+                        localStorage.setItem("token", response.data.token);
+                        alert("signin successful");
+                    } 
+                    catch (error) {
+                    alert("Invalid username or password");
+                    }
+                }
+
+                function logout() {
+                    const token = localStorage.getItem("token");
+                    if (token) {
+                      localStorage.removeItem("token");
+                      alert("Logout successful");
+                    } else {
+                      alert("No user is currently logged in");
+                    }
+                }
+                async function myinformation() { 
+                    const response = await axios.get("http://localhost:3002/me", 
+                    { headers: 
+                        { token: localStorage.getItem("token") } }); 
+
+                        document.getElementById("info").innerHTML = 
+                        "username: " + response.data.username + "/n" +
+                        " password: " + response.data.password;
+                     }
+
+            </script>
+
+            <div class ="section-one"> 
+                <h2> signup </h2>
+                <input type="text" placeholder="username" id="user_su">
+                <input type="text" placeholder="password" id="pass_su">
+                <button id="signup" onclick="signup()"> submit </button>
+            </div> 
+
+            <div class ="section-two">  
+                 <h2> signin </h2>  
+                 <input type="text" placeholder="username" id="user_si">
+                 <input type="text" placeholder="password" id="pass_si"> 
+                 <button id="signin" onclick="signin()"> submit </button>
+            </div>
+            <div> 
+               <button id = "info" onclick="myinformation()"> my information </button> 
+            </div>
+            <div>   
+            <button id="1" onclick="logout()"> log out </button>
+            </div>
+        </body>
+</html>

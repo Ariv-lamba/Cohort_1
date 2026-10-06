@@ -1,0 +1,20 @@
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+         <script>
+            async function be(){
+               const response = await fetch("http://localhost:3006/sum?a=135&b=9");
+               const data = response.json();
+               console.log(data);
+            }
+            be();
+        </script>
+        <title>Document</title>
+       
+    <body>
+        Linkedin
+    </body>
+    </html>
+

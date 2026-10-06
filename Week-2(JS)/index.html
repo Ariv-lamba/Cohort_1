@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>syntax</title>
+</head>
+
+<body> 
+
+<h1>ToDo Application </h1>
+<input type = "text"></input>
+<button onclick="adding()">Add task</button>
+<script>
+     let todos= [];
+    function adding() {
+        todos.push({
+        title:document.querySelector("input").value
+        })
+        render();
+    }
+
+    function deletetodo(){
+        render();
+    }
+
+    function render(){
+        
+    }
+
+    
+
+   
+   
+   
+   /* function adding() {
+        ctr++;
+        const ele = document.querySelector("input").value;
+        const ok = document.createElement("div");
+        const btn = document.createElement("button");
+        const txt = document.createElement("span");
+        txt.innerHTML = ele;
+        btn.innerHTML = "del";
+        ok.appendChild(txt);
+        ok.appendChild(btn);
+        let a = ctr;
+        btn.setAttribute("id","btn"+a);
+       // btn.setAttribut("onclick" , "deletetodo(ctr)");
+       btn.onclick = function() { deletetodo(a); };
+        document.querySelector("body").appendChild(ok);
+
+    }
+
+    function deletetodo(ct){
+        const findbtn = document.querySelector("#btn"+ct);
+        findbtn.parentElement.remove();
+    }
+        */
+
+</script>
+</body>
+
+
+</html>

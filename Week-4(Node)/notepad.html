@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>My Notepad</title>
+<style>
+    body {
+        margin: 0;
+        font-family: 'Segoe UI', sans-serif;
+        background: #0f172a;
+        color: white;
+    }
+
+    header {
+        padding: 20px;
+        text-align: center;
+        background: #1e293b;
+        font-size: 24px;
+        font-weight: bold;
+    }
+
+    .container {
+        padding: 20px;
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        gap: 20px;
+    }
+
+    .note {
+        background: #1e293b;
+        padding: 15px;
+        border-radius: 12px;
+        position: relative;
+    }
+
+    textarea {
+        width: 100%;
+        height: 150px;
+        background: transparent;
+        border: none;
+        color: white;
+        resize: none;
+        outline: none;
+        font-size: 14px;
+    }
+
+    .delete {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background: red;
+        border: none;
+        color: white;
+        border-radius: 6px;
+        cursor: pointer;
+        padding: 4px 8px;
+    }
+
+    .add-btn {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        background: #3b82f6;
+        border: none;
+        color: white;
+        font-size: 20px;
+        padding: 15px 20px;
+        border-radius: 50%;
+        cursor: pointer;
+    }
+</style>
+</head>
+<body>
+
+<header>📝 My Notepad</header>
+
+<div class="container" id="notes"></div>
+
+<button class="add-btn" onclick="addNote()">+</button>
+
+<script>
+const notesContainer = document.getElementById("notes");
+
+// Load saved notes
+function loadNotes() {
+    const notes = JSON.parse(localStorage.getItem("notes")) || [];
+    notes.forEach(note => createNote(note));
+}
+
+// Save notes
+function saveNotes() {
+    const textareas = document.querySelectorAll("textarea");
+    const notes = [];
+    textareas.forEach(t => notes.push(t.value));
+    localStorage.setItem("notes", JSON.stringify(notes));
+}
+
+// Create note UI
+function createNote(text = "") {
+    const note = document.createElement("div");
+    note.classList.add("note");
+
+    note.innerHTML = `
+        <button class="delete">X</button>
+        <textarea placeholder="Write your note...">${text}</textarea>
+    `;
+
+    // Delete
+    note.querySelector(".delete").onclick = () => {
+        note.remove();
+        saveNotes();
+    };
+
+    // Auto-save
+    note.querySelector("textarea").addEventListener("input", saveNotes);
+
+    notesContainer.appendChild(note);
+}
+
+// Add new note
+function addNote() {
+    createNote();
+}
+
+// Init
+loadNotes();
+</script>
+
+</body>
+</html>
