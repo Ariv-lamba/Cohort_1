@@ -2,7 +2,7 @@ const express = require("express")
 const app = express();
 const jwt = require('jsonwebtoken');
 const mongoose = require("mongoose");
-const JWT_SECRET = "muskiichuskiiiscutegudiya";
+const JWT_SECRET = "miya";
 
 mongoose.connect("mongodb+srv://abcd_user:R2POUexhF@cluster-01.8i8c12z.mongodb.net/todo-app-data");
 const {usermodel , todomodel} = require("./db");
