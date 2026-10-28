@@ -4,7 +4,7 @@ const jwt = require('jsonwebtoken');
 const mongoose = require("mongoose");
 const JWT_SECRET = "muskiichuskiiiscutegudiya";
 
-mongoose.connect("mongodb+srv://sonulamba241034_db_user:R2POUJGVOEirexhF@cluster-01.8i8c12z.mongodb.net/todo-app-data");
+mongoose.connect("mongodb+srv://abcd_user:R2POUexhF@cluster-01.8i8c12z.mongodb.net/todo-app-data");
 const {usermodel , todomodel} = require("./db");
 // import from db.js file 
 // now this usermodel give me high level function to change data in db
