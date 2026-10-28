@@ -1,20 +1,55 @@
 const express = require("express")
 const app = express();
+const jwt = require('jsonwebtoken');
+const mongoose = require("mongoose");
+const JWT_SECRET = "muskiichuskiiiscutegudiya";
 
-const {usermodel , todomodel} = require(",/db");
+mongoose.connect("mongodb+srv://sonulamba241034_db_user:R2POUJGVOEirexhF@cluster-01.8i8c12z.mongodb.net/todo-app-data");
+const {usermodel , todomodel} = require("./db");
 // import from db.js file 
 // now this usermodel give me high level function to change data in db
+app.use(express.json());
 app.post("/signup", async function(req, res){
-    username = req.body.username;
-    password = req.body.password;
+    const username = req.body.username;  // i am considering username as email 
+    const password = req.body.password;
+    const name = req.body.name;
 
 
-    // await usermodel.create{
+     await usermodel.create({
+        username : username,
+        password : password, 
+        name : nameclea
 
-    // }
+     });
+     res.status(200).json({
+        message : " you are successfully signed up"
+     })
 
 });
-app.post("/signin", function(req, res){
+app.post("/signin", async function(req, res){
+    const username = req.body.username;
+    const password = req.body.password;
+
+    // get input form user now , find in db , using findone
+    const resp = await usermodel.findOne({
+        username : username, 
+        password : password,
+    });
+
+    if(resp){
+        const token = jwt.sign({
+          id : resp._id.toString()
+        }, JWT_SECRET);
+
+        res.json({
+            token
+        });
+
+    }else{
+        res.status(403).json({
+            message : " invalid credentials"
+        });
+    }
 
 });
 
